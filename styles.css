@@ -1,7 +1,7 @@
 /* styles.css */
 
 .header {
-    background-image: url('C:/Users/a362236/OneDrive - Valvoline Global/Desktop/Pre-cap & Recap Webpage/Recap/GBL_Valvoline_Logo_positive_RGB.jpg');
+    background-image: url('https://github.com/nfmcglinchey/Recap/blob/main/GBL_Valvoline_Logo_positive_RGB.jpg');
     background-size: contain; /* Adjust as needed: cover, contain, or specific dimensions */
     background-repeat: no-repeat;
     background-position: center;

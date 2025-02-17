@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Valvoline Training Recap</title>
     <link rel="stylesheet" href="styles.css" />
     <!-- Include html2pdf.js library from CDN -->
@@ -23,9 +23,9 @@
         <button onclick="closeModal('scheduled')">Scheduled</button>
       </div>
     </div>
-
+    
     <!-- Account Type Modal -->
-    <div id="accountTypeModal" class="modal" style="display: none;">
+    <div id="accountTypeModal" class="modal" style="display:none;">
       <div class="modal-content">
         <h2>What type of account is this for?</h2>
         <div class="radio-group">
@@ -39,90 +39,75 @@
         </div>
       </div>
     </div>
-
-    <!-- This is your existing user form layout -->
+    
+    <!-- Visible Form Container -->
     <div class="container">
       <div class="header">
         <p>Date: <span id="currentDate"></span></p>
       </div>
       <h2>Training Recap</h2>
-
+      
       <label>Account Name:</label>
       <input type="text" id="accountName" placeholder="Enter Account Name">
-
+      
       <label>Attention:</label>
       <textarea id="attention" rows="2"></textarea>
-
+      
       <label>CC:</label>
       <textarea id="cc" rows="3"></textarea>
-
+      
       <label>Audience Name:</label>
       <input type="text" id="audienceName" placeholder="Audience Name">
-
+      
       <label>Personalized Opening:</label>
       <textarea id="opening" placeholder="I appreciate your support this week while I visited your district. I wanted to take a moment to express my gratitude for the opportunity to conduct training sessions at the following location(s):"></textarea>
-
+      
       <label>Locations Visited:</label>
       <textarea id="locations" placeholder="• List the locations you visited:"></textarea>
-
+      
       <label>Topics Covered:</label>
       <textarea id="topics" placeholder="• What topics were covered in your training visit?"></textarea>
-
+      
       <label>Training Type & Headcount:</label>
       <textarea id="trainingType" placeholder="• Type of training (in‑store/ classroom) and total headcount."></textarea>
-
+      
       <label>Key Achievements:</label>
       <textarea id="achievements" placeholder="• Enter visit details."></textarea>
-
+      
       <label>Opportunities for Improvement:</label>
       <textarea id="opportunities" placeholder="• Enter opportunities for improvement."></textarea>
-
+      
       <label>Follow‑Ups:</label>
       <textarea id="followUps" placeholder="• Enter Follow ups and the party responsible."></textarea>
-
+      
       <label>Personalized Closing:</label>
-      <textarea id="closing" placeholder="Once again, I would like to express my gratitude..."></textarea>
-
+      <textarea id="closing" placeholder="Once again, I would like to express my gratitude for the opportunity to conduct these training sessions at [Location 1], [Location 2], and [Location 3]. If there is anything else you need or if you have any questions, please don't hesitate to reach out."></textarea>
+      
       <button id="pdfButton" onclick="generatePDF()" disabled>Generate PDF</button>
       <button id="emailButton" onclick="sendEmail()" disabled>Generate Email</button>
     </div>
-
-    <!-- Hidden letter container, used only for PDF generation -->
-    <div id="pdfLetter" style="display:none;">
+    
+    <!-- Hidden PDF Letter Container (positioned off-screen so it's rendered) -->
+    <div id="pdfLetter">
       <div style="font-family:Arial, sans-serif; width:8.5in; min-height:11in; margin:0 auto; padding:1in; box-sizing:border-box;">
         <p style="text-align:right;">Date: <span id="pdfDate"></span></p>
-
-        <p style="font-weight:bold;">Manager of Field Training<br/>
-        Mobile: (1) 878-278-5100<br/>
-        NMcGlinchey@valvolineglobal.com</p>
-
-        <hr style="border:1px solid #002F6C; margin:20px 0;"/>
-
-        <p><strong>Account:</strong> <span id="pdfAccountName"></span></p>
-        <p><strong>Attention:</strong> <span id="pdfAttention"></span></p>
-        <p><strong>CC:</strong> <span id="pdfCC"></span></p>
-
-        <br/>
+        <p style="font-weight:bold;">Account: <span id="pdfAccountName"></span></p>
+        <p style="font-weight:bold;">Attention: <span id="pdfAttention"></span></p>
+        <p style="font-weight:bold;">CC: <span id="pdfCC"></span></p>
+        <br />
         <p>Dear <span id="pdfAudienceName"></span>,</p>
         <p id="pdfOpening"></p>
-        <p><strong>Locations Visited:</strong><br/><span id="pdfLocations"></span></p>
-        <p><strong>Topics Covered:</strong><br/><span id="pdfTopics"></span></p>
-        <p><strong>Training Type &amp; Headcount:</strong><br/><span id="pdfTrainingType"></span></p>
-        <p><strong>Key Achievements:</strong><br/><span id="pdfAchievements"></span></p>
-        <p><strong>Opportunities for Improvement:</strong><br/><span id="pdfOpportunities"></span></p>
-        <p><strong>Follow‑Ups:</strong><br/><span id="pdfFollowUps"></span></p>
+        <p><strong>Locations Visited:</strong><br /><span id="pdfLocations"></span></p>
+        <p><strong>Topics Covered:</strong><br /><span id="pdfTopics"></span></p>
+        <p><strong>Training Type & Headcount:</strong><br /><span id="pdfTrainingType"></span></p>
+        <p><strong>Key Achievements:</strong><br /><span id="pdfAchievements"></span></p>
+        <p><strong>Opportunities for Improvement:</strong><br /><span id="pdfOpportunities"></span></p>
+        <p><strong>Follow‑Ups:</strong><br /><span id="pdfFollowUps"></span></p>
         <p id="pdfClosing"></p>
-
-        <p>Sincerely,<br/>
-        <em>Neal McGlinchey</em></p>
-
-        <hr style="border:1px solid #FF0000; margin:20px 0;"/>
-        <p style="font-size:10px; font-style:italic;">
-          Valvoline Global Operations | 100 Valvoline Way, Suite 200 | Lexington, KY 40509 | valvolineglobal.com
-        </p>
+        <p>Sincerely,<br /><em>Neal McGlinchey</em></p>
       </div>
     </div>
-
+    
     <script src="script.js"></script>
   </body>
 </html>

@@ -103,6 +103,11 @@ button:disabled {
     margin: 5px;
 }
 
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .radio-group label {
     display: inline-flex;
     align-items: center;
@@ -120,8 +125,14 @@ button:disabled {
 
 /* Mobile adjustments */
 @media only screen and (max-width: 600px) {
+  .radio-group {
+    display: flex;
+    flex-wrap: wrap;
+  }
   .radio-group label {
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 15px;
     margin-bottom: 10px;
   }
 }

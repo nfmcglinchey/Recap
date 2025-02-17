@@ -175,7 +175,10 @@ function generatePDF() {
   console.log("PDF container content:", letterElement.innerHTML);
 
   let defaultFileName = `1 Recap for ${date}.pdf`;
-  let fileName = prompt(`Do you want to use the default naming convention for the PDF file?\nClick OK to use:\n"${defaultFileName}"\nOr click Cancel to enter a custom name.`)
+  let fileName = prompt(`Do you want to use the default naming convention for the PDF file?
+Click OK to use:
+"${defaultFileName}"
+Or click Cancel to enter a custom name.`)
     ? defaultFileName
     : prompt("Enter PDF file name:", defaultFileName) || defaultFileName;
 
@@ -214,8 +217,8 @@ function sendEmail() {
   let subject = `Valvoline FTS Recap for ${document.getElementById("accountName")?.value || "Account"}`;
 
   let body = `Hello ${audienceName},\n\n` +
-    "Thanks for your time this week, below are a few high‑level notes from my visits. My detailed notes can be found in the attached PDF.\n\n" +
-    "The topics covered and our key achievements are below:\n\n";
+    `Thanks for your time this week, below are a few high‑level notes from my visits. My detailed notes can be found in the attached PDF.\n\n` +
+    `The topics covered and our key achievements are below:\n\n`;
 
   if (topics) {
     body += topics + "\n";

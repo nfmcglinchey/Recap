@@ -1,7 +1,7 @@
 /* styles.css */
 .header {
-    background-image: url('https://github.com/nfmcglinchey/Recap/blob/main/GBL_Valvoline_Logo_positive_RGB.jpg');
-    background-size: contain; /* Adjust as needed: cover, contain, or specific dimensions */
+    background-image: url('https://raw.githubusercontent.com/nfmcglinchey/Recap/main/GBL_Valvoline_Logo_positive_RGB.jpg');
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     height: 150px;

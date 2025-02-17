@@ -1,24 +1,23 @@
-// script.js
-
 function isMobile() {
     return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    if (isMobile()) {
-        alert("For the best experience, open this page in Safari or Chrome.");
-    }
-});
+// Removed mobile alert for browser suggestion
+// document.addEventListener("DOMContentLoaded", function () {
+//     if (isMobile()) {
+//         alert("For the best experience, open this page in Safari or Chrome.");
+//     }
+// });
 
-// Set current date in the header
 document.addEventListener("DOMContentLoaded", function () {
+    // Set current date in the header
     let today = new Date();
     let formattedDate = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
     document.getElementById("currentDate").innerText = formattedDate;
 });
 
-// Show instruction modal on page load and disable form inputs initially
 document.addEventListener("DOMContentLoaded", function () {
+    // Show instruction modal on page load and disable form inputs initially
     document.getElementById("instructionModal").style.display = "flex";
     document.querySelectorAll('.container input, .container textarea, #pdfButton, #emailButton').forEach(el => {
         el.disabled = true;

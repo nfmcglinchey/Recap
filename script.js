@@ -2,7 +2,7 @@ function isMobile() {
   return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 }
 
-// Set the current date in the header
+// Set the current date in the header when DOM loads
 document.addEventListener("DOMContentLoaded", function () {
   let today = new Date();
   let formattedDate = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
@@ -130,29 +130,49 @@ function validateForm() {
   document.getElementById('emailButton').disabled = !allFilled;
 }
 
+// Watch form inputs to enable buttons when all are filled
 document.querySelectorAll('.container input, .container textarea').forEach(el => {
   el.addEventListener("input", validateForm);
 });
 
-// New generatePDF function using html2pdf.js
+/**
+ * Generate a PDF with a letter-style format by copying
+ * form values into a hidden container (#pdfLetter) 
+ * and then passing that container to html2pdf.
+ */
 function generatePDF() {
   console.log("generatePDF triggered");
-  let element = document.querySelector('.container');
-  if (!element) {
-    console.error("Container element not found");
-    alert("Error: Container element not found.");
-    return;
-  }
-  
-  let today = new Date();
-  let formattedDate = today.toLocaleDateString("en-US", {
+
+  // 1. Copy form values into the hidden #pdfLetter container
+  let date = new Date().toLocaleDateString("en-US", {
     month: "2-digit",
     day: "2-digit",
     year: "numeric"
   });
-  let defaultFileName = `1 Recap for ${formattedDate}.pdf`;
-  
-  // Ask user for the file name; if they cancel the first prompt, ask again.
+  document.getElementById("pdfDate").textContent = date;
+
+  document.getElementById("pdfAccountName").textContent = document.getElementById("accountName").value;
+  document.getElementById("pdfAttention").textContent = document.getElementById("attention").value;
+  document.getElementById("pdfCC").textContent = document.getElementById("cc").value;
+  document.getElementById("pdfAudienceName").textContent = document.getElementById("audienceName").value;
+  document.getElementById("pdfOpening").textContent = document.getElementById("opening").value;
+  document.getElementById("pdfLocations").textContent = document.getElementById("locations").value;
+  document.getElementById("pdfTopics").textContent = document.getElementById("topics").value;
+  document.getElementById("pdfTrainingType").textContent = document.getElementById("trainingType").value;
+  document.getElementById("pdfAchievements").textContent = document.getElementById("achievements").value;
+  document.getElementById("pdfOpportunities").textContent = document.getElementById("opportunities").value;
+  document.getElementById("pdfFollowUps").textContent = document.getElementById("followUps").value;
+  document.getElementById("pdfClosing").textContent = document.getElementById("closing").value;
+
+  // 2. Now pass #pdfLetter to html2pdf
+  let letterElement = document.getElementById("pdfLetter");
+  if (!letterElement) {
+    console.error("pdfLetter container not found");
+    alert("Error: pdfLetter container not found.");
+    return;
+  }
+
+  let defaultFileName = `1 Recap for ${date}.pdf`;
   let fileName = prompt(`Do you want to use the default naming convention for the PDF file?\nClick OK to use:\n"${defaultFileName}"\nOr click Cancel to enter a custom name.`)
     ? defaultFileName
     : prompt("Enter PDF file name:", defaultFileName) || defaultFileName;
@@ -165,9 +185,7 @@ function generatePDF() {
     jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
   };
 
-  console.log("Options set for html2pdf:", opt);
-
-  html2pdf().set(opt).from(element).save()
+  html2pdf().set(opt).from(letterElement).save()
     .then(() => {
       console.log("PDF generation complete.");
     })

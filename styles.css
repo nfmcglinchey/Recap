@@ -143,12 +143,12 @@ button:disabled {
 }
 
 /* --- Hidden PDF Letter Container --- 
-   This is the element that html2pdf will capture.
-   We use inline styling in your HTML for margins/padding,
-   but you can style it here if you prefer.
+   Instead of display:none, we position it off-screen so html2pdf can capture it.
 */
 #pdfLetter {
-    display: none; /* Hidden by default so the user only sees the form. */
+    position: absolute;
+    left: -9999px;
+    top: 0;
 }
 
 #pdfLetter > div {

@@ -187,14 +187,17 @@ function generatePDF() {
     jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
   };
 
-  html2pdf().set(opt).from(letterElement).save()
-    .then(() => {
-      console.log("PDF generation complete.");
-    })
-    .catch((error) => {
-      console.error("Error during PDF generation:", error);
-      alert("There was an error generating the PDF. Check the console for details.");
-    });
+  // Add a slight delay for the DOM to update
+  setTimeout(() => {
+    html2pdf().set(opt).from(letterElement).save()
+      .then(() => {
+        console.log("PDF generation complete.");
+      })
+      .catch((error) => {
+        console.error("Error during PDF generation:", error);
+        alert("There was an error generating the PDF. Check the console for details.");
+      });
+  }, 100);
 }
 
 function sendEmail() {

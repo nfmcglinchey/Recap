@@ -150,7 +150,6 @@ function generatePDF() {
     year: "numeric"
   });
   document.getElementById("pdfDate").textContent = date;
-
   document.getElementById("pdfAccountName").textContent = document.getElementById("accountName").value;
   document.getElementById("pdfAttention").textContent = document.getElementById("attention").value;
   document.getElementById("pdfCC").textContent = document.getElementById("cc").value;
@@ -164,13 +163,16 @@ function generatePDF() {
   document.getElementById("pdfFollowUps").textContent = document.getElementById("followUps").value;
   document.getElementById("pdfClosing").textContent = document.getElementById("closing").value;
 
-  // 2. Now pass #pdfLetter to html2pdf
+  // 2. Retrieve the hidden letter container
   let letterElement = document.getElementById("pdfLetter");
   if (!letterElement) {
     console.error("pdfLetter container not found");
     alert("Error: pdfLetter container not found.");
     return;
   }
+
+  // Debug: log the inner HTML of the container to ensure it's populated
+  console.log("PDF container content:", letterElement.innerHTML);
 
   let defaultFileName = `1 Recap for ${date}.pdf`;
   let fileName = prompt(`Do you want to use the default naming convention for the PDF file?\nClick OK to use:\n"${defaultFileName}"\nOr click Cancel to enter a custom name.`)

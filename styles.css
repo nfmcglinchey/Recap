@@ -127,12 +127,12 @@ button:disabled {
   .radio-group {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around; /* or space-between */
   }
+
   .radio-group label {
-    display: inline-flex;
-    align-items: center;
-    margin-right: 15px;
-    margin-bottom: 10px;
+    flex: 1 0 45%; /* Each label gets about half the modal width */
+    margin-bottom: 10px; /* Add space between rows */
   }
 }
 

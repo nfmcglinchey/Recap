@@ -142,3 +142,40 @@ button:disabled {
     left: -9999px;
     top: 0;
 }
+
+/* Dark Mode Overrides */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .container {
+    background: #1e1e1e;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode h2 {
+    color: #ffffff;
+}
+
+body.dark-mode label {
+    color: #e0e0e0;
+}
+
+body.dark-mode textarea,
+body.dark-mode input {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 1px solid #444;
+}
+
+body.dark-mode button {
+    background-color: #004080; /* Adjusted for dark mode contrast */
+    color: #ffffff;
+}
+
+body.dark-mode .modal-content {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}

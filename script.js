@@ -234,6 +234,7 @@ function sendEmail() {
   window.location.href = mailtoLink;
 }
 
-document.getElementById('darkModeToggle').addEventListener('change', function() {
-    document.body.classList.toggle('dark-mode', this.checked);
+document.getElementById('darkModeToggle').addEventListener('click', function() {
+  document.body.classList.toggle('dark-mode');
 });
+

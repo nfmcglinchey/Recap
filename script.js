@@ -219,7 +219,7 @@ function sendEmail() {
   let mailtoLink = `mailto:${encodeURIComponent(audienceEmail)}?cc=${encodeURIComponent(ccEmails)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   window.location.href = mailtoLink;
 }
-
+Function generateWord()
 fetch("./Recap/Template.docx")
   .then(response => response.arrayBuffer())
   .then(content => {

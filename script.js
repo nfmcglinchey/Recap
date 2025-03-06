@@ -224,7 +224,7 @@ function generateWord() {
   fetch("./Template.dotx")
     .then(response => response.arrayBuffer())
     .then(content => {
-      let zip = new window.PizZip(content);
+      let zip = new PizZip(content);
       let doc = new window.Docxtemplater(zip);
       doc.setData({
         accountName: document.getElementById("accountName").value,

@@ -219,13 +219,15 @@ function sendEmail() {
   let mailtoLink = `mailto:${encodeURIComponent(audienceEmail)}?cc=${encodeURIComponent(ccEmails)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   window.location.href = mailtoLink;
 }
-Function generateWord()
-fetch("./Recap/Template.docx")
-  .then(response => response.arrayBuffer())
-  .then(content => {
-    let zip = new PizZip(content);
-    let doc = new window.Docxtemplater(zip);
-
+function generateWord() {
+  fetch("./Recap/Template.docx")
+    .then(response => response.arrayBuffer())
+    .then(content => {
+      let zip = new PizZip(content);
+      let doc = new window.Docxtemplater(zip);
+      // ...
+    });
+}
       // Adjust these mappings to match the RTCC placeholders in your template:
       doc.setData({
         "Account Name": document.getElementById("accountName").value,

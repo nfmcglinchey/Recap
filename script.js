@@ -220,12 +220,11 @@ function sendEmail() {
   window.location.href = mailtoLink;
 }
 
-function generateWord() {
-  fetch("./Template.dotx")
-    .then(response => response.arrayBuffer())
-    .then(content => {
-      let zip = new PizZip(content);
-      let doc = new window.Docxtemplater(zip);
+fetch("./Recap/Template.docx")
+  .then(response => response.arrayBuffer())
+  .then(content => {
+    let zip = new PizZip(content);
+    let doc = new window.Docxtemplater(zip);
 
       // Adjust these mappings to match the RTCC placeholders in your template:
       doc.setData({

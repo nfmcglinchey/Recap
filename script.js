@@ -221,8 +221,7 @@ function sendEmail() {
 }
 
 function generateWord() {
-  // Use the correct path to your .dotx file here:
-  fetch("./Template.dotx") 
+  fetch("./Template.dotx")
     .then(response => response.arrayBuffer())
     .then(content => {
       let zip = new PizZip(content);

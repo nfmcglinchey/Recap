@@ -221,7 +221,7 @@ function sendEmail() {
 }
 
 function generateWord() {
-  fetch("./Template.docx")
+  fetch("./assets/Template.docx")
     .then(response => response.arrayBuffer())
     .then(content => {
       // Create a PizZip instance from the template data

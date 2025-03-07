@@ -222,17 +222,10 @@ function sendEmail() {
 
 function generateWord() {
   fetch("./Template.dotx")
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.arrayBuffer();
-  })
-  .then(content => {
-    try {
+    .then(response => response.arrayBuffer())
+    .then(content => {
       let zip = new PizZip(content);
       let doc = new window.Docxtemplater(zip);
-
       doc.setData({
         accountName: document.getElementById("accountName").value,
         attention: document.getElementById("attention").value,
@@ -248,19 +241,13 @@ function generateWord() {
         closing: document.getElementById("closing").value
       });
 
-      doc.render();
-
-      let out = doc.getZip().generate({ type: "blob" });
-      saveAs(out, "Recap.docx");
-    } catch (error) {
-      console.error("Error during template rendering:", error);
-      alert("Error generating Word document. Check the console for details.");
-    }
-  })
-  .catch(error => {
-    console.error("Error fetching template:", error);
-    alert("Error fetching Word template. Make sure 'Template.dotx' exists in the correct location.");
-  });
+      try {
+        doc.render();
+      } catch (error) {
+        console.error("Error during template rendering:", error);
+        alert("Error generating Word document. Check the console for details.");
+        return;
+      }
 
       let out = doc.getZip().generate({ type: "blob" });
       saveAs(out, "Recap.docx");

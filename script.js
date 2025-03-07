@@ -225,8 +225,8 @@ function generateWord() {
     .then(response => response.arrayBuffer())
     .then(content => {
       let zip = new PizZip(content);
-      let DocxtemplaterConstructor = window.Docxtemplater || window.Docxtemplater.default;
-      let doc = new DocxtemplaterConstructor(zip);
+      let doc = new window.Docxtemplater(zip); // Use this constructor
+      
       doc.setData({
         accountName: document.getElementById("accountName").value,
         attention: document.getElementById("attention").value,
@@ -258,3 +258,4 @@ function generateWord() {
 document.getElementById('darkModeToggle').addEventListener('click', function() {
   document.body.classList.toggle('dark-mode');
 });
+

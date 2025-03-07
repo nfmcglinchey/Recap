@@ -225,7 +225,8 @@ function generateWord() {
     .then(response => response.arrayBuffer())
     .then(content => {
       let zip = new PizZip(content);
-      let doc = new window.Docxtemplater(zip);
+      let DocxtemplaterConstructor = window.Docxtemplater || window.Docxtemplater.default;
+      let doc = new DocxtemplaterConstructor(zip);
       doc.setData({
         accountName: document.getElementById("accountName").value,
         attention: document.getElementById("attention").value,

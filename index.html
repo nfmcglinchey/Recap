@@ -6,16 +6,21 @@
     <title>Valvoline Training Recap</title>
     <link rel="stylesheet" href="styles.css" />
 
-    <!-- PDF Generation Library -->
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-    <!-- Libraries for Word Template Processing -->
-    <script defer src="https://cdn.jsdelivr.net/npm/pizzip@3.0.5/dist/pizzip.min.js"></script>
-    <!-- Known-working build that exposes window.Docxtemplater -->
-    <script defer src="https://cdn.jsdelivr.net/npm/docxtemplater@3.28.0/build/docxtemplater.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+   <!-- PDF Generation Library -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
-    <!-- Your custom JS (must come after the above libraries) -->
-    <script defer src="script.js"></script>
+<!-- PizZip (must load before Docxtemplater) -->
+<script defer src="https://cdn.jsdelivr.net/npm/pizzip@3.0.5/dist/pizzip.min.js"></script>
+
+<!-- Docxtemplater build that exposes `window.Docxtemplater` -->
+<script defer src="https://cdn.jsdelivr.net/npm/docxtemplater@3.28.0/build/docxtemplater-latest.min.js"></script>
+
+<!-- FileSaver -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+<!-- Your custom JS (must come after the above libraries) -->
+<script defer src="script.js"></script>
+    
   </head>
   <body>
     <!-- Instruction Modal -->

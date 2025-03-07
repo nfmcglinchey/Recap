@@ -224,9 +224,13 @@ function generateWord() {
   fetch("./Template.docx")
     .then(response => response.arrayBuffer())
     .then(content => {
+      // Create a PizZip instance from the template data
       let zip = new PizZip(content);
+      
+      // Instantiate Docxtemplater using the global Docxtemplater constructor
       let doc = new Docxtemplater(zip);
       
+      // Set the data to be merged into the template
       doc.setData({
         accountName: document.getElementById("accountName").value,
         attention: document.getElementById("attention").value,
@@ -243,6 +247,7 @@ function generateWord() {
       });
 
       try {
+        // Merge the data into the template
         doc.render();
       } catch (error) {
         console.error("Error during template rendering:", error);
@@ -250,8 +255,13 @@ function generateWord() {
         return;
       }
 
+      // Generate the final .docx file and trigger download
       let out = doc.getZip().generate({ type: "blob" });
       saveAs(out, "Recap.docx");
+    })
+    .catch(error => {
+      console.error("Error fetching template:", error);
+      alert("Failed to load Template.docx. Check the console for details.");
     });
 }
 

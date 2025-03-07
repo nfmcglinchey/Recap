@@ -221,35 +221,46 @@ function sendEmail() {
 }
 
 function generateWord() {
-  fetch("./Template.docx")
-    .then(response => response.arrayBuffer())
-    .then(content => {
+  fetch("./Template.dotx")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.arrayBuffer();
+  })
+  .then(content => {
+    try {
       let zip = new PizZip(content);
       let doc = new window.Docxtemplater(zip);
 
-      // Adjust these mappings to match your placeholders:
       doc.setData({
-        "Account Name": document.getElementById("accountName").value,
-        "To:": document.getElementById("attention").value,
-        "CC:": document.getElementById("cc").value,
-        "Audience Name": document.getElementById("audienceName").value,
-        "Personalized Opening": document.getElementById("opening").value,
-        "List of Locations Visited": document.getElementById("locations").value,
-        "Topics Covered": document.getElementById("topics").value,
-        "Training Type and Headcount": document.getElementById("trainingType").value,
-        "Achievements": document.getElementById("achievements").value,
-        "Opportunities": document.getElementById("opportunities").value,
-        "Follow-Ups": document.getElementById("followUps").value,
-        "Personalized Closing": document.getElementById("closing").value
+        accountName: document.getElementById("accountName").value,
+        attention: document.getElementById("attention").value,
+        cc: document.getElementById("cc").value,
+        audienceName: document.getElementById("audienceName").value,
+        opening: document.getElementById("opening").value,
+        locations: document.getElementById("locations").value,
+        topics: document.getElementById("topics").value,
+        trainingType: document.getElementById("trainingType").value,
+        achievements: document.getElementById("achievements").value,
+        opportunities: document.getElementById("opportunities").value,
+        followUps: document.getElementById("followUps").value,
+        closing: document.getElementById("closing").value
       });
 
-      try {
-        doc.render();
-      } catch (error) {
-        console.error("Error during template rendering:", error);
-        alert("Error generating Word document. Check the console for details.");
-        return;
-      }
+      doc.render();
+
+      let out = doc.getZip().generate({ type: "blob" });
+      saveAs(out, "Recap.docx");
+    } catch (error) {
+      console.error("Error during template rendering:", error);
+      alert("Error generating Word document. Check the console for details.");
+    }
+  })
+  .catch(error => {
+    console.error("Error fetching template:", error);
+    alert("Error fetching Word template. Make sure 'Template.dotx' exists in the correct location.");
+  });
 
       let out = doc.getZip().generate({ type: "blob" });
       saveAs(out, "Recap.docx");

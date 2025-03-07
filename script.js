@@ -221,7 +221,7 @@ function sendEmail() {
 }
 
 function generateWord() {
-  fetch("./Template.dotx")
+  fetch("./Template.docx")
     .then(response => response.arrayBuffer())
     .then(content => {
       let zip = new PizZip(content);

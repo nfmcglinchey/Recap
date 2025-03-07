@@ -10,8 +10,10 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
     <!-- Libraries for Word Template Processing -->
     <script defer src="https://cdn.jsdelivr.net/npm/pizzip@3.0.5/dist/pizzip.min.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.21.1/docxtemplater.min.js"></script>
+    <!-- Known-working build that exposes window.Docxtemplater -->
+    <script defer src="https://cdn.jsdelivr.net/npm/docxtemplater@3.28.0/build/docxtemplater.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
     <!-- Your custom JS (must come after the above libraries) -->
     <script defer src="script.js"></script>
   </head>
@@ -116,11 +118,5 @@
         <p>Sincerely,<br /><em>Neal McGlinchey</em></p>
       </div>
     </div>
-
-    <!-- 
-      NOTE: All your JavaScript logic (generatePDF, sendEmail, generateWord, etc.)
-      lives in "script.js", which is deferred so it loads AFTER the external libraries.
-      Ensure that the file "Template.dotx" is in the same folder as this HTML.
-    -->
   </body>
 </html>

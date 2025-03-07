@@ -9,17 +9,16 @@
    <!-- PDF Generation Library -->
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
-<!-- PizZip (must load before Docxtemplater) -->
+<!-- PizZip first -->
 <script defer src="https://cdn.jsdelivr.net/npm/pizzip@3.0.5/dist/pizzip.min.js"></script>
 
-<!-- Docxtemplater build that exposes `window.Docxtemplater` -->
-<script defer src=https://cdn.jsdelivr.net/gh/jquery/jquery@3.6/dist/jquery.min.js></script>
-<script defer src=https://cdn.jsdelivr.net/gh/jquery/jquery@3/dist/jquery.min.js></script>
+<!-- Docxtemplater second -->
+<script defer src="https://cdn.jsdelivr.net/npm/docxtemplater@latest/build/docxtemplater-latest.min.js"></script>
 
-<!-- FileSaver -->
+<!-- FileSaver third -->
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
-<!-- Your custom JS (must come after the above libraries) -->
+<!-- Your custom JS last -->
 <script defer src="script.js"></script>
     
   </head>

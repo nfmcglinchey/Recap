@@ -1,0 +1,248 @@
+/* ==================== */
+/* Base Layout & Header */
+/* ==================== */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: block;
+}
+
+.header {
+    background-image: url('https://raw.githubusercontent.com/nfmcglinchey/Recap/main/GBL_Valvoline_Logo_positive_RGB.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* =============== */
+/* Form Container  */
+/* =============== */
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+h2 {
+    color: #002F6C;
+    text-align: center;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+textarea,
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* ========== */
+/* Buttons    */
+/* ========== */
+
+button {
+    width: 100%;
+    background-color: #002F6C;
+    color: white;
+    border: none;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+button:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* ========== */
+/* Modal Base */
+/* ========== */
+
+.modal {
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    max-height: 90vh;
+    overflow-y: auto;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-buttons {
+    margin-top: 20px;
+}
+
+.modal button {
+    width: 45%;
+    margin: 5px;
+}
+
+/* =============== */
+/* Radio Group Fix */
+/* =============== */
+
+.radio-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.radio-row label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.radio-row input[type="radio"] {
+    margin: 0;
+    margin-right: 12px;
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+}
+
+/* =============== */
+/* Placeholder Style */
+/* =============== */
+
+.placeholder {
+    color: gray;
+    font-style: italic;
+}
+
+/* ========================= */
+/* Offscreen PDF Letter Box */
+/* ========================= */
+
+#pdfLetter {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100vw;
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+/* ============ */
+/* Dark Mode    */
+/* ============ */
+
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .container {
+    background: #1e1e1e;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode h2,
+body.dark-mode label {
+    color: #e0e0e0;
+}
+
+body.dark-mode textarea,
+body.dark-mode input {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 1px solid #444;
+}
+
+body.dark-mode button {
+    background-color: #004080;
+    color: #ffffff;
+}
+
+body.dark-mode .modal-content {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* ================= */
+/* Mobile Adjustments */
+/* ================= */
+
+@media only screen and (max-width: 600px) {
+    .modal-content {
+        width: 90%;
+        max-width: 90%;
+        padding: 16px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .radio-row label span {
+        font-size: 16px;
+    }
+
+    .radio-row input[type="radio"] {
+        width: 22px;
+        height: 22px;
+        margin-right: 14px;
+    }
+
+    .container {
+        padding: 16px;
+        border-radius: 0;
+        box-shadow: none;
+        margin: 10px;
+    }
+
+    textarea,
+    input {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 14px;
+    }
+}

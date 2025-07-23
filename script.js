@@ -234,7 +234,17 @@ async function generateWord() {
     const fileName = `1 Recap for ${dateStr}.docx`;
     saveAs(blob, fileName);
   } catch (error) {
-    console.error("Word generation failed:", error);
-    alert("There was an issue creating the Word file.");
+  console.error("Word generation failed:", error);
+
+  if (error.properties && Array.isArray(error.properties.errors)) {
+    const errorMessages = error.properties.errors.map(e => {
+      const tag = e.properties.id || "(unknown tag)";
+      const message = e.properties.explanation || "No explanation available.";
+      return `Tag: ${tag}\nMessage: ${message}`;
+    }).join("\n\n");
+
+    alert("Docx template error:\n\n" + errorMessages);
+  } else {
+    alert("Unexpected error creating Word file. Check the console for details.");
   }
 }

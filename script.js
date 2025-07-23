@@ -221,7 +221,7 @@ async function generateWord() {
       achievements: getValue("achievements"),
       opportunities: getValue("opportunities"),
       follow_ups: getValue("followUps"),
-      fts_name: "Neal McGlinchey"
+      fts_name: "ftsName"
     });
 
     doc.render();

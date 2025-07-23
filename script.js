@@ -1,4 +1,3 @@
-
 function isMobile() {
   return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 }
@@ -25,18 +24,8 @@ function closeModal(type) {
   if (type === "non-scheduled") {
     document.getElementById("topics")?.remove();
     document.querySelector("label[for='topics']")?.remove();
-
     document.getElementById("trainingType")?.remove();
     document.querySelector("label[for='trainingType']")?.remove();
-
-    const achievementsInput = document.getElementById("achievements");
-    if (achievementsInput) {
-      achievementsInput.value = achievementsInput.value.replace(
-        "The training resulted in the following key achievements:",
-        "The topics covered on the FTS visit were:"
-      );
-    }
-
     document.getElementById('pdfButton').disabled = false;
     document.getElementById('emailButton').disabled = false;
     document.getElementById('wordButton').disabled = false;
@@ -189,13 +178,13 @@ function generatePDF() {
 }
 
 function sendEmail() {
-  const audienceEmail = document.getElementById("attention")?.value || "";
-  const ccEmails = document.getElementById("cc")?.value || "";
-  const audienceName = document.getElementById("audienceName")?.value || "";
-  const topics = document.getElementById("topics")?.value?.split("\n").map(t => "• " + t).join("\n") || "";
-  const achievements = document.getElementById("achievements")?.value?.split("\n").map(a => "• " + a).join("\n") || "";
+  const audienceEmail = getValue("attention");
+  const ccEmails = getValue("cc");
+  const audienceName = getValue("audienceName");
+  const topics = getValue("topics").split("\n").map(t => "• " + t).join("\n");
+  const achievements = getValue("achievements").split("\n").map(a => "• " + a).join("\n");
 
-  const subject = `Valvoline FTS Recap for ${document.getElementById("accountName")?.value || "Account"}`;
+  const subject = `Valvoline FTS Recap for ${getValue("accountName")}`;
   let body = `Hello ${audienceName},\n\nThanks for your time this week, below are a few high‑level notes from my visits. My detailed notes can be found in the attached PDF.\n\n`;
 
   if (topics) body += "Topics Covered:\n" + topics + "\n\n";
@@ -207,56 +196,45 @@ function sendEmail() {
   window.location.href = mailtoLink;
 }
 
-function generateWord() {
+async function generateWord() {
   const dateStr = new Date().toLocaleDateString("en-US", {
     month: "2-digit",
     day: "2-digit",
     year: "numeric",
   });
 
-  const content = `
-Account: ${getValue("accountName")}
-Attention: ${getValue("attention")}
-CC: ${getValue("cc")}
+  try {
+    const response = await fetch("https://nfmcglinchey.github.io/Recap/Example.docx");
+    const arrayBuffer = await response.arrayBuffer();
+    const zip = new PizZip(arrayBuffer);
+    const doc = new window.docxtemplater().loadZip(zip);
 
-Dear ${getValue("audienceName")},
+    doc.setData({
+      date: dateStr,
+      account_name: getValue("accountName"),
+      attention: getValue("attention"),
+      cc: getValue("cc"),
+      audience_name: getValue("audienceName"),
+      locations: getValue("locations"),
+      topics: getValue("topics"),
+      training_type: getValue("trainingType"),
+      achievements: getValue("achievements"),
+      opportunities: getValue("opportunities"),
+      follow_ups: getValue("followUps"),
+      fts_name: "Neal McGlinchey"
+    });
 
-${getValue("opening")}
+    doc.render();
 
-Locations Visited:
-${getValue("locations")}
+    const blob = doc.getZip().generate({
+      type: "blob",
+      mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    });
 
-Topics Covered:
-${getValue("topics")}
-
-Training Type & Headcount:
-${getValue("trainingType")}
-
-Key Achievements:
-${getValue("achievements")}
-
-Opportunities for Improvement:
-${getValue("opportunities")}
-
-Follow-Ups:
-${getValue("followUps")}
-
-${getValue("closing")}
-
-Sincerely,
-
-Neal McGlinchey
-Field Training Specialist
-Mobile: (1) 678-278-5100
-NFMcGlinchey@valvolineglobal.com
-
-Valvoline Global Operations | 100 Valvoline Way, Suite 200 | Lexington, KY 40509 | valvolineglobal.com
-`;
-
-  const blob = new Blob([content], {
-    type: "application/msword" // old-style DOC, not DOCX
-  });
-
-  const fileName = `1 Recap for ${dateStr}.doc`;
-  saveAs(blob, fileName);
+    const fileName = `1 Recap for ${dateStr}.docx`;
+    saveAs(blob, fileName);
+  } catch (error) {
+    console.error("Word generation failed:", error);
+    alert("There was an issue creating the Word file.");
+  }
 }

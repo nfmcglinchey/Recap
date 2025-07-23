@@ -248,3 +248,4 @@ async function generateWord() {
     alert("Unexpected error creating Word file. Check the console for details.");
   }
 }
+}

@@ -207,7 +207,10 @@ async function generateWord() {
     const response = await fetch("https://raw.githubusercontent.com/nfmcglinchey/Recap/main/Example.docx");
     const arrayBuffer = await response.arrayBuffer();
     const zip = new PizZip(arrayBuffer);
-    const doc = new window.docxtemplater().loadZip(zip);
+    const doc = new window.docxtemplater.Docxtemplater(zip, {
+    paragraphLoop: true,
+    linebreaks: true
+    });
 
     doc.setData({
       date: dateStr,

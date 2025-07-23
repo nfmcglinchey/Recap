@@ -211,17 +211,17 @@ async function generateWord() {
 
     doc.setData({
       date: dateStr,
-      account_name: getValue("accountName"),
+      accountName: getValue("accountName"),
       attention: getValue("attention"),
       cc: getValue("cc"),
-      audience_name: getValue("audienceName"),
+      audienceName: getValue("audienceName"),
       locations: getValue("locations"),
       topics: getValue("topics"),
-      training_type: getValue("trainingType"),
+      trainingType: getValue("trainingType"),
       achievements: getValue("achievements"),
       opportunities: getValue("opportunities"),
-      follow_ups: getValue("followUps"),
-      fts_name: "ftsName"
+      followUps: getValue("followUps"),
+      //fts_name: "ftsName"
     });
 
     doc.render();

@@ -204,7 +204,7 @@ async function generateWord() {
   });
 
   try {
-    const response = await fetch("https://raw.githubusercontent.com/nfmcglinchey/Recap/main/Example.docx");
+    const response = await fetch("https://nfmcglinchey.github.io/Recap/Example.docx");
     const arrayBuffer = await response.arrayBuffer();
     const zip = new PizZip(arrayBuffer);
     

@@ -263,7 +263,8 @@ async function generateWord() {
     const arrayBuffer = await response.arrayBuffer();
     const zip = new PizZip(arrayBuffer);
 
-    const doc = new Docxtemplater(zip, {
+    const doc = new window.docxtemplater.Docxtemplater(zip, { ... });
+
       paragraphLoop: true,
       linebreaks: true,
       nullGetter: () => "",

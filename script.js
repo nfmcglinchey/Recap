@@ -279,7 +279,7 @@ async function generateWord() {
     const arrayBuffer = await response.arrayBuffer();
     const zip = new PizZip(arrayBuffer);
     
-    const doc = new window.docxtemplater.Docxtemplater(zip, {
+    const doc = new Docxtemplater(zip, {
       paragraphLoop: true,
       linebreaks: true,
       nullGetter: () => "",  // This avoids crashing on unused/missing tags

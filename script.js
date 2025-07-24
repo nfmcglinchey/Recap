@@ -16,6 +16,41 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.classList.toggle("dark-mode");
   });
 });
+async function validateDocxTemplate(templateUrl, dataKeys) {
+  try {
+    const response = await fetch(templateUrl);
+    if (!response.ok) throw new Error(`Failed to load template: ${response.status}`);
+    const arrayBuffer = await response.arrayBuffer();
+
+    const zip = new PizZip(arrayBuffer);
+    const doc = new window.docxtemplater.Docxtemplater(zip, {
+      paragraphLoop: true,
+      linebreaks: true,
+    });
+
+    const tags = doc.getFullText().match(/{{(.*?)}}/g) || [];
+
+    const cleanTags = [...new Set(tags.map(tag => tag.replace(/[{}]/g, "").trim()))];
+    const unusedTags = cleanTags.filter(tag => !dataKeys.includes(tag));
+    const missingTags = dataKeys.filter(key => !cleanTags.includes(key));
+
+    console.group("🧾 DOCX Template Tag Check");
+    console.info("Found in .docx:", cleanTags);
+    console.info("Provided via setData():", dataKeys);
+    if (unusedTags.length) {
+      console.warn("⚠️ Unused tags in .docx (not in setData):", unusedTags);
+    }
+    if (missingTags.length) {
+      console.warn("⚠️ Missing tags in .docx (used in setData):", missingTags);
+    }
+    if (!unusedTags.length && !missingTags.length) {
+      console.log("✅ All tags in sync!");
+    }
+    console.groupEnd();
+  } catch (err) {
+    console.error("Template validation failed:", err);
+  }
+}
 
 function closeModal(type) {
   document.getElementById("instructionModal").style.display = "none";
@@ -194,6 +229,42 @@ function sendEmail() {
 
   const mailtoLink = `mailto:${encodeURIComponent(audienceEmail)}?cc=${encodeURIComponent(ccEmails)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   window.location.href = mailtoLink;
+}
+
+async function validateDocxTemplate(templateUrl, dataKeys) {
+  try {
+    const response = await fetch(templateUrl);
+    if (!response.ok) throw new Error(`Failed to load template: ${response.status}`);
+    const arrayBuffer = await response.arrayBuffer();
+
+    const zip = new PizZip(arrayBuffer);
+    const doc = new window.docxtemplater.Docxtemplater(zip, {
+      paragraphLoop: true,
+      linebreaks: true,
+    });
+
+    const tags = doc.getFullText().match(/{{(.*?)}}/g) || [];
+
+    const cleanTags = [...new Set(tags.map(tag => tag.replace(/[{}]/g, "").trim()))];
+    const unusedTags = cleanTags.filter(tag => !dataKeys.includes(tag));
+    const missingTags = dataKeys.filter(key => !cleanTags.includes(key));
+
+    console.group("🧾 DOCX Template Tag Check");
+    console.info("Found in .docx:", cleanTags);
+    console.info("Provided via setData():", dataKeys);
+    if (unusedTags.length) {
+      console.warn("⚠️ Unused tags in .docx (not in setData):", unusedTags);
+    }
+    if (missingTags.length) {
+      console.warn("⚠️ Missing tags in .docx (used in setData):", missingTags);
+    }
+    if (!unusedTags.length && !missingTags.length) {
+      console.log("✅ All tags in sync!");
+    }
+    console.groupEnd();
+  } catch (err) {
+    console.error("Template validation failed:", err);
+  }
 }
 
 async function generateWord() {

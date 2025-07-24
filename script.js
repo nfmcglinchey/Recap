@@ -207,9 +207,11 @@ async function generateWord() {
     const response = await fetch("https://raw.githubusercontent.com/nfmcglinchey/Recap/main/Example.docx");
     const arrayBuffer = await response.arrayBuffer();
     const zip = new PizZip(arrayBuffer);
+    
     const doc = new window.docxtemplater.Docxtemplater(zip, {
-    paragraphLoop: true,
-    linebreaks: true
+      paragraphLoop: true,
+      linebreaks: true,
+      nullGetter: () => "",  // This avoids crashing on unused/missing tags
     });
 
     doc.setData({
@@ -223,8 +225,8 @@ async function generateWord() {
       trainingType: getValue("trainingType"),
       achievements: getValue("achievements"),
       opportunities: getValue("opportunities"),
-      followUps: getValue("followUps"),
-      //fts_name: "ftsName"
+      followUps: getValue("followUps")
+      // You can still add extra fields here if needed, e.g. ftsName
     });
 
     doc.render();
@@ -237,18 +239,18 @@ async function generateWord() {
     const fileName = `1 Recap for ${dateStr}.docx`;
     saveAs(blob, fileName);
   } catch (error) {
-  console.error("Word generation failed:", error);
+    console.error("Word generation failed:", error);
 
-  if (error.properties && Array.isArray(error.properties.errors)) {
-    const errorMessages = error.properties.errors.map(e => {
-      const tag = e.properties.id || "(unknown tag)";
-      const message = e.properties.explanation || "No explanation available.";
-      return `Tag: ${tag}\nMessage: ${message}`;
-    }).join("\n\n");
+    if (error.properties && Array.isArray(error.properties.errors)) {
+      const errorMessages = error.properties.errors.map(e => {
+        const tag = e.properties.id || "(unknown tag)";
+        const message = e.properties.explanation || "No explanation available.";
+        return `Tag: ${tag}\nMessage: ${message}`;
+      }).join("\n\n");
 
-    alert("Docx template error:\n\n" + errorMessages);
-  } else {
-    alert("Unexpected error creating Word file. Check the console for details.");
+      alert("Docx template error:\n\n" + errorMessages);
+    } else {
+      alert("Unexpected error creating Word file. Check the console for details.");
+    }
   }
-}
 }

@@ -16,41 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.classList.toggle("dark-mode");
   });
 });
-async function validateDocxTemplate(templateUrl, dataKeys) {
-  try {
-    const response = await fetch(templateUrl);
-    if (!response.ok) throw new Error(`Failed to load template: ${response.status}`);
-    const arrayBuffer = await response.arrayBuffer();
-
-    const zip = new PizZip(arrayBuffer);
-    const doc = new window.docxtemplater.Docxtemplater(zip, {
-      paragraphLoop: true,
-      linebreaks: true,
-    });
-
-    const tags = doc.getFullText().match(/{{(.*?)}}/g) || [];
-
-    const cleanTags = [...new Set(tags.map(tag => tag.replace(/[{}]/g, "").trim()))];
-    const unusedTags = cleanTags.filter(tag => !dataKeys.includes(tag));
-    const missingTags = dataKeys.filter(key => !cleanTags.includes(key));
-
-    console.group("🧾 DOCX Template Tag Check");
-    console.info("Found in .docx:", cleanTags);
-    console.info("Provided via setData():", dataKeys);
-    if (unusedTags.length) {
-      console.warn("⚠️ Unused tags in .docx (not in setData):", unusedTags);
-    }
-    if (missingTags.length) {
-      console.warn("⚠️ Missing tags in .docx (used in setData):", missingTags);
-    }
-    if (!unusedTags.length && !missingTags.length) {
-      console.log("✅ All tags in sync!");
-    }
-    console.groupEnd();
-  } catch (err) {
-    console.error("Template validation failed:", err);
-  }
-}
 
 function closeModal(type) {
   document.getElementById("instructionModal").style.display = "none";
@@ -238,7 +203,7 @@ async function validateDocxTemplate(templateUrl, dataKeys) {
     const arrayBuffer = await response.arrayBuffer();
 
     const zip = new PizZip(arrayBuffer);
-    const doc = new window.docxtemplater.Docxtemplater(zip, {
+    const doc = new Docxtemplater(zip, {
       paragraphLoop: true,
       linebreaks: true,
     });
@@ -275,14 +240,33 @@ async function generateWord() {
   });
 
   try {
-    const response = await fetch("https://nfmcglinchey.github.io/Recap/Example.docx");
+    const templateUrl = "https://nfmcglinchey.github.io/Recap/Example.docx";
+    const dataKeys = [
+      "date",
+      "accountName",
+      "attention",
+      "cc",
+      "audienceName",
+      "locations",
+      "topics",
+      "trainingType",
+      "achievements",
+      "opportunities",
+      "followUps",
+      "closing"
+    ];
+
+    await validateDocxTemplate(templateUrl, dataKeys);
+
+    const response = await fetch(templateUrl);
+    if (!response.ok) throw new Error(`Template fetch failed: ${response.status}`);
     const arrayBuffer = await response.arrayBuffer();
     const zip = new PizZip(arrayBuffer);
-    
+
     const doc = new Docxtemplater(zip, {
       paragraphLoop: true,
       linebreaks: true,
-      nullGetter: () => "",  // This avoids crashing on unused/missing tags
+      nullGetter: () => "",
     });
 
     doc.setData({
@@ -296,8 +280,8 @@ async function generateWord() {
       trainingType: getValue("trainingType"),
       achievements: getValue("achievements"),
       opportunities: getValue("opportunities"),
-      followUps: getValue("followUps")
-      // You can still add extra fields here if needed, e.g. ftsName
+      followUps: getValue("followUps"),
+      closing: getValue("closing"),
     });
 
     doc.render();
